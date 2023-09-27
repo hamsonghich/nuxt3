@@ -1,0 +1,6 @@
+$color-1: #1BBEF5;
+$color-2: #1BECA6;
+$opacity: 0.5;
+@mixin color_mix() {
+    background: linear-gradient(to right, rgba(#1BECA6, 0.2), rgba(#1BECA6, 0.2));
+}
