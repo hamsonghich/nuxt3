@@ -1,36 +1,65 @@
 <template>
-  <div class="btn-common-component">
+  <div class="btn-common-component" :style="cssProps">
     <div class="btn-layer-1"></div>
     <div class="btn-layer-2"></div>
     <div class="btn-layer-3"></div>
     <div class="btn-layer-4"></div>
     <button class="btn-common" :class="typeBtn">
-      <slot />
+      <slot/>
     </button>
+    <p class="text_check">text checkk</p>
   </div>
 </template>
 <script setup lang="ts">
-import {defineComponent} from "@vue/runtime-core";
+import {defineComponent, onBeforeMount} from "@vue/runtime-core";
+import {ref, onMounted, computed} from 'vue'
 
 defineComponent({
   name: '.btn-commonCommon'
 })
-defineProps({
+const props = defineProps({
   typeBtn: {
     type: String,
-    default: 'default'
+    default: 'type_1'
+  },
+  cssBtn: {
+    type: Object,
+    default: {
+      colors: ['green', 'red'],
+      borders: ['1px', '5px'],
+      opacity: '0.2'
+    }
+  }
+})
+onMounted(() => {
+})
+const {cssBtn} = props
+const cssProps = computed(() => {
+  return {
+    '--btn-border-width': cssBtn?.borders[0],
+    '--btn-border-radius': cssBtn?.borders[1],
+    '--btn-color-1': cssBtn?.colors[0],
+    '--btn-color-2': cssBtn?.colors[1],
+    '--btn-opacity': cssBtn?.opacity
   }
 })
 </script>
 <style scoped lang="scss">
-.btn-common-component {
-  --btn-border-width: 1px;
-  --btn-border-radius: 10px;
-  --btn-color-1: #1BBEF5;
-  --btn-color-2: #1BECA6;
+$color-custom: red;
+.text_check {
+  color: var(--btn-color-2);
 }
+
+.btn-common-component {
+  //--btn-border-width: 1px;
+  //--btn-border-radius: 10px;
+  //--btn-color-1: #{$color-1};
+  //--btn-color-2: #{$color-2};
+}
+
 .btn-common-component {
   position: relative;
+
   .btn-layer-1 {
     position: absolute;
     top: 0;
@@ -39,6 +68,7 @@ defineProps({
     height: var(--btn-border-width);
     background: linear-gradient(to right, var(--btn-color-1), var(--btn-color-2));
   }
+
   .btn-layer-2 {
     position: absolute;
     bottom: 0;
@@ -47,6 +77,7 @@ defineProps({
     height: var(--btn-border-width);
     background: linear-gradient(to right, var(--btn-color-1), var(--btn-color-2));
   }
+
   .btn-layer-3 {
     position: absolute;
     left: 0;
@@ -57,6 +88,7 @@ defineProps({
     border-right: 0;
     border-color: var(--btn-color-1);
   }
+
   .btn-layer-4 {
     position: absolute;
     right: 0;
@@ -71,7 +103,20 @@ defineProps({
   .btn-common {
     padding: 10px 20px;
     border-radius: var(--btn-border-radius);
-    @include color_mix();
+  }
+
+  //.btn-common.type_1 {
+  //  background: none;
+  //  transition: 0.5s ease-in-out;
+  //}
+
+  .btn-common.type_1 {
+    //@include bg_ln_mix(var(--btn-color-1), var(--btn-color-2), $opacity);
+    --color-opacity-1: rgba(var(--btn-color-1), var(--btn-opacity));
+    --color-opacity-2: rgba(var(--btn-color-2), var(--btn-opacity));
+    background: var(--color-opacity-1);
+
+    transition: 0.5s ease-in-out;
   }
 }
 
