@@ -20,7 +20,6 @@
     "dist"
   ],
   "include": [
-    "./**/*",
-    "node_modules/nuxt/types.d.ts"
+    "./**/*"
   ]
 }

@@ -31,6 +31,7 @@ export default defineNuxtConfig({
         ]
     },
     css: [
+        'assets/icon/font-awesome-6-pro/css/all.css',
         'assets/scss/main.scss'
     ],
     postcss: {
@@ -55,5 +56,9 @@ export default defineNuxtConfig({
                 }
             }
         }
-    }
+    },
+    modules: [
+        '@element-plus/nuxt'
+    ],
+    elementPlus: { /** Options */ }
 })
