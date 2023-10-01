@@ -4,7 +4,7 @@
     <div class="input-layer-2"></div>
     <div class="input-layer-3"></div>
     <div class="input-layer-4"></div>
-    <div class="delete-icon-layer" v-if="inputValue.trim() && checkFocusInput" @click="deleteInputValue">
+    <div class="delete-icon-layer" v-if="checkFocusInput" @click="deleteInputValue">
       <i class="fa-solid fa-circle-xmark"></i>
     </div>
     <input class="input_tag" type="text" v-model="inputValue" :disabled="disabled">
@@ -37,22 +37,19 @@ const props = defineProps({
   }
 })
 const {cssInputProps, disabled} = props;
+let inputValue = ref('')
+inputValue.value = props.inputValue
 const checkFocusInput = ref(false)
 onMounted(() => {
   const input_component_common = document.querySelector('.input-component-common');
   const inputCommon = document.querySelector('.input_tag');
   inputCommon?.addEventListener('focus', () => {
     input_component_common?.classList.add('active')
-    checkFocusInput.value = true
-    console.log('focus')
   })
   inputCommon?.addEventListener('blur', () => {
     input_component_common?.classList.remove('active')
-    checkFocusInput.value = false
   })
 })
-let inputValue = ref('')
-inputValue.value = props.inputValue
 const cssProps = computed(() => {
   const cssDefault = {
     '--border-width': cssInputProps?.borders[0],
@@ -68,10 +65,14 @@ const cssProps = computed(() => {
 })
 const emit = defineEmits(['changeInput'])
 watch(inputValue, (newValue, oldValue) => {
+  if (newValue !== '') {
+    checkFocusInput.value = true
+  } else {
+    checkFocusInput.value = false
+  }
   emit('changeInput', newValue)
 })
 const deleteInputValue = () => {
-  alert('delet')
   inputValue.value = ''
 }
 </script>
