@@ -76,12 +76,14 @@
           </div>
         </el-tab-pane>
         <el-tab-pane label="Input Common" name="input_common">
+          <p class="text-white">Su kien active chua hoan thien, can phai xu li</p>
+          <br>
           <div class="w-full">
             <div class="grid grid-cols-2 gap-[20px]">
               <div class="p-2 text-white">Default</div>
               <div>
                 <InputCommon type="text" :cssInputProps="cssPropsInput" @changeInput="changeInput"/>
-                <InputCommon type="text" :cssInputProps="cssPropsInput"/>
+<!--                <InputCommon type="text" :cssInputProps="cssPropsInput"/>-->
               </div>
               <div class="p-2 text-white">Hover</div>
               <div>
@@ -99,10 +101,25 @@
               <div>
                 <InputCommon type="text" class="active" :disabled="true" :cssInputProps="cssPropsInput"/>
               </div>
+              <div class="p-2 text-white">Readonly</div>
+              <div>
+                <InputCommon type="text" class="active" :inputValue="'Read only ...'" :readonly="true" :cssInputProps="cssPropsInput"/>
+              </div>
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="Role" name="third">Role</el-tab-pane>
+        <el-tab-pane label="Textarea Common" name="textarea_common">
+          <p class="text-white">Su kien active chua hoan thien, can phai xu li</p>
+          <br>
+          <div class="w-full">
+            <div class="grid grid-cols-2 gap-[20px]">
+              <div class="p-2 text-white">Default</div>
+              <div>
+                <TextAreaCommon :cssTextAreaProps="cssPropsTextArea"></TextAreaCommon>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
         <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
       </el-tabs>
     </div>
@@ -113,8 +130,9 @@ import {ref} from 'vue'
 import type {TabsPaneContext} from 'element-plus'
 import ButtonCommon from '@/components/common/ButtonCommon.vue'
 import InputCommon from '@/components/common/InputCommon.vue'
+import TextAreaCommon from '@/components/common/TextAreaCommon.vue'
 
-const activeName = ref('input_common')
+const activeName = ref('textarea_common')
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)
 }
@@ -146,6 +164,12 @@ const cssPropsInput = {
 }
 const changeInput = (valueInput: any) => {
   console.log('valueInput', valueInput)
+}
+// props textarea common
+const cssPropsTextArea = {
+  colors: ['#1BBEF5', '#1BECA6', '#1D272F', '#0D171B'],
+  borders: ['1px', '8px'],
+  opacity: '100%'
 }
 </script>
 <style scoped lang="scss">

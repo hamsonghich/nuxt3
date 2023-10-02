@@ -1,5 +1,5 @@
 <template>
-  <div class="input-component-common" :style="cssProps">
+  <div class="input-component-common"  :style="cssProps">
     <div class="input-layer-1"></div>
     <div class="input-layer-2"></div>
     <div class="input-layer-3"></div>
@@ -7,7 +7,7 @@
     <div class="delete-icon-layer" v-if="checkFocusInput" @click="deleteInputValue">
       <i class="fa-solid fa-circle-xmark"></i>
     </div>
-    <input class="input_tag" type="text" v-model="inputValue" :disabled="disabled">
+    <input class="input_tag" ref="inputTag" type="text" v-model="inputValue" :disabled="disabled" :readonly="readonly" :placeholder="placeholder">
   </div>
 </template>
 <script setup lang="ts">
@@ -34,21 +34,23 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  readonly: {
+    type: Boolean,
+    default: false
+  },
+  placeholder: {
+    type: String,
+    required: false
   }
 })
-const {cssInputProps, disabled} = props;
+const {cssInputProps, disabled, readonly, placeholder} = props;
 let inputValue = ref('')
 inputValue.value = props.inputValue
 const checkFocusInput = ref(false)
+const inputTag = ref(null)
 onMounted(() => {
-  const input_component_common = document.querySelector('.input-component-common');
-  const inputCommon = document.querySelector('.input_tag');
-  inputCommon?.addEventListener('focus', () => {
-    input_component_common?.classList.add('active')
-  })
-  inputCommon?.addEventListener('blur', () => {
-    input_component_common?.classList.remove('active')
-  })
+  // console.log(inputTag.value)
 })
 const cssProps = computed(() => {
   const cssDefault = {
@@ -65,11 +67,7 @@ const cssProps = computed(() => {
 })
 const emit = defineEmits(['changeInput'])
 watch(inputValue, (newValue, oldValue) => {
-  if (newValue !== '') {
-    checkFocusInput.value = true
-  } else {
-    checkFocusInput.value = false
-  }
+  checkFocusInput.value = newValue !== '';
   emit('changeInput', newValue)
 })
 const deleteInputValue = () => {
@@ -140,11 +138,11 @@ const deleteInputValue = () => {
     background: var(--color-4);
     border: var(--border-width) solid var(--color-3);
     border-radius: var(--border-radius);
-    outline: none;
     padding: 12px 30px 12px 16px;
     line-height: 16px;
     color: $color-3;
     font-size: 14px;
+    outline: none;
   }
   .input_tag.close_icon_show {
     //padding-right: 30px;
