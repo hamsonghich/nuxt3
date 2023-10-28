@@ -1,7 +1,7 @@
 <template>
   <div class="layout_default">
-    <HeaderComponent />
-    <p>layout default</p>
+    <HeaderComponent v-if="false"/>
+    <p class="hidden">layout default</p>
     <slot />
   </div>
 </template>

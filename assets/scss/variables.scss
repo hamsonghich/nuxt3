@@ -2,6 +2,9 @@ $color-1: #1BBEF5;
 $color-2: #1BECA6;
 $color-3: #627784;
 $color-4: #A4B0B6;
+$color-5: #122126;
+$color-6: #0D171B;
+$color-7: #AEE5EA;
 $opacity: 0.2;
 @mixin bg_ln_mix($color-1, $color-2, $opacity) {
     background: linear-gradient(to right, rgba($color-1, $opacity), rgba($color-2, $opacity));

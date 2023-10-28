@@ -58,7 +58,37 @@ export default defineNuxtConfig({
         }
     },
     modules: [
-        '@element-plus/nuxt'
+        '@element-plus/nuxt',
+        '@pinia/nuxt',
+        'nuxt-lodash'
     ],
+    lodash: {
+
+        prefix: "_",
+
+        prefixSkip: ["string"],
+
+        upperAfterPrefix: false,
+
+        exclude: ["map"],
+
+        alias: [
+
+            ["camelCase", "stringToCamelCase"], // => stringToCamelCase
+
+            ["kebabCase", "stringToKebab"], // => stringToKebab
+
+            ["isDate", "isLodashDate"], // => _isLodashDate
+
+        ],
+
+    },
+    pinia: {
+        autoImports: [
+            // automatically imports `defineStore`
+            'defineStore', // import { defineStore } from 'pinia'
+            ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+        ],
+    },
     elementPlus: { /** Options */ }
 })
